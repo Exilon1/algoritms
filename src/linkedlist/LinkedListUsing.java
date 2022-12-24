@@ -24,16 +24,17 @@ public class LinkedListUsing {
     public static LinkedList merge(LinkedList firstList, LinkedList secondList) {
         LinkedList target = new LinkedList();
 
-        if (firstList.count() == secondList.count()) {
-            Node firstNode = firstList.head;
-            Node secondNode = secondList.head;
-            while (firstNode != null) {
-                target.addInTail(new Node(firstNode.value + secondNode.value));
+        if (firstList.count() != secondList.count()) {
+            return target;
+        }
 
-                firstNode = firstNode.next;
-                secondNode = secondNode.next;
-            }
+        Node firstNode = firstList.head;
+        Node secondNode = secondList.head;
+        while (firstNode != null) {
+            target.addInTail(new Node(firstNode.value + secondNode.value));
 
+            firstNode = firstNode.next;
+            secondNode = secondNode.next;
         }
 
         return target;
