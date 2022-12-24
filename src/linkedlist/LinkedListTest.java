@@ -215,11 +215,6 @@ class LinkedListTest {
         Node nodeToInsert = new Node(7);
         Node nodeFromList;
 
-        list.insertAfter(null, nodeToInsert);
-        assertEquals(list.count(), 0);
-        assertNull(list.head);
-        assertNull(list.tail);
-
         list.insertAfter(someNode, nodeToInsert);
         assertEquals(list.count(), 0);
         assertNull(list.head);
@@ -229,6 +224,11 @@ class LinkedListTest {
         assertEquals(list.count(), 0);
         assertNull(list.head);
         assertNull(list.tail);
+
+        list.insertAfter(null, nodeToInsert);
+        assertEquals(list.count(), 1);
+        assertEquals(list.head.value, 7);
+        assertEquals(list.head, list.head);
 
         clean();
 

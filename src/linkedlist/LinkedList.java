@@ -127,6 +127,11 @@ public class LinkedList {
             return;
         }
 
+        if (head == null && _nodeAfter == null) {
+            head = _nodeToInsert;
+            tail = _nodeToInsert;
+        }
+
         Node node =  head;
         while (node != null) {
             if (node.equals(_nodeAfter)) {
