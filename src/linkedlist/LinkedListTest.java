@@ -29,7 +29,7 @@ class LinkedListTest {
 
         assertFalse(list.remove(1));
         assertEquals(list.head, list.tail);
-        assertEquals(list.head.value, 3);
+        assertEquals(3, list.head.value);
 
         assertTrue(list.remove(3));
         assertNull(list.head);
@@ -40,23 +40,23 @@ class LinkedListTest {
         fillDifferentElements();
 
         assertFalse(list.remove(0));
-        assertEquals(list.count(), 5);
+        assertEquals(5, list.count());
 
         assertTrue(list.remove(1));
         assertNull(list.find(1));
-        assertEquals(list.count(), 4);
-        assertEquals(list.head.value, 2);
+        assertEquals(4, list.count());
+        assertEquals(2, list.head.value);
 
         assertTrue(list.remove(5));
         assertNull(list.find(5));
-        assertEquals(list.count(), 3);
-        assertEquals(list.tail.value, 4);
+        assertEquals(3, list.count());
+        assertEquals(4, list.tail.value);
 
         assertTrue(list.remove(3));
         assertNull(list.find(3));
-        assertEquals(list.count(), 2);
-        assertEquals(list.head.value, 2);
-        assertEquals(list.tail.value, 4);
+        assertEquals(2, list.count());
+        assertEquals(2, list.head.value);
+        assertEquals(4, list.tail.value);
     }
 
     @Test
@@ -65,7 +65,7 @@ class LinkedListTest {
 
         list.removeAll(1);
         assertEquals(list.head, list.tail);
-        assertEquals(list.head.value, 3);
+        assertEquals(3, list.head.value);
 
         list.removeAll(3);
         assertNull(list.head);
@@ -76,48 +76,48 @@ class LinkedListTest {
         fillDifferentElements();
 
         list.removeAll(0);
-        assertEquals(list.count(), 5);
+        assertEquals(5, list.count());
 
         list.removeAll(1);
         assertNull(list.find(1));
-        assertEquals(list.count(), 4);
-        assertEquals(list.head.value, 2);
+        assertEquals(4, list.count());
+        assertEquals(2, list.head.value);
 
         list.removeAll(5);
         assertNull(list.find(5));
-        assertEquals(list.count(), 3);
-        assertEquals(list.tail.value, 4);
+        assertEquals(3, list.count());
+        assertEquals(4, list.tail.value);
 
         list.removeAll(3);
         assertNull(list.find(3));
-        assertEquals(list.count(), 2);
-        assertEquals(list.head.value, 2);
-        assertEquals(list.tail.value, 4);
+        assertEquals(2, list.count());
+        assertEquals(2, list.head.value);
+        assertEquals(4, list.tail.value);
 
         clean();
 
         fillElementsWithRepetitionsAtTheBeginning();
 
         list.removeAll(1);
-        assertEquals(list.count(), 3);
-        assertEquals(list.head.value, 3);
+        assertEquals(3, list.count());
+        assertEquals(3, list.head.value);
 
         clean();
 
         fillElementsWithRepetitionsAtTheMiddle();
 
         list.removeAll(2);
-        assertEquals(list.count(), 3);
-        assertEquals(list.head.value, 1);
-        assertEquals(list.tail.value, 5);
+        assertEquals(3, list.count());
+        assertEquals(1, list.head.value);
+        assertEquals(5, list.tail.value);
 
         clean();
 
         fillElementsWithRepetitionsAtTheEnd();
 
         list.removeAll(5);
-        assertEquals(list.count(), 3);
-        assertEquals(list.tail.value, 3);
+        assertEquals(3, list.count());
+        assertEquals(3, list.tail.value);
     }
 
     @Test
@@ -137,76 +137,78 @@ class LinkedListTest {
 
     @Test
     void findAllTest() {
+        assertTrue(list.findAll(0).isEmpty());
+
         fillSingleElement();
 
         ArrayList<Node> nodeList;
 
         nodeList = list.findAll(1);
-        assertEquals(nodeList.size(), 0);
+        assertEquals(0, nodeList.size());
 
         nodeList = list.findAll(3);
-        assertEquals(nodeList.size(), 1);
+        assertEquals(1, nodeList.size());
 
         clean();
 
         fillDifferentElements();
 
         nodeList = list.findAll(0);
-        assertEquals(nodeList.size(), 0);
+        assertEquals(0, nodeList.size());
 
         nodeList = list.findAll(1);
-        assertEquals(nodeList.size(), 1);
-        assertEquals(nodeList.get(0).value, 1);
+        assertEquals(1, nodeList.size());
+        assertEquals(1, nodeList.get(0).value);
 
         nodeList = list.findAll(3);
-        assertEquals(nodeList.size(), 1);
-        assertEquals(nodeList.get(0).value, 3);
+        assertEquals(1, nodeList.size());
+        assertEquals(3, nodeList.get(0).value);
 
         nodeList = list.findAll(5);
-        assertEquals(nodeList.size(), 1);
-        assertEquals(nodeList.get(0).value, 5);
+        assertEquals(1, nodeList.size());
+        assertEquals(5, nodeList.get(0).value);
 
         clean();
 
         fillElementsWithRepetitionsAtTheBeginning();
 
         nodeList = list.findAll(1);
-        assertEquals(nodeList.size(), 2);
-        assertEquals(nodeList.get(0).value, 1);
-        assertEquals(nodeList.get(1).value, 1);
+        assertEquals(2, nodeList.size());
+        assertEquals(1, nodeList.get(0).value);
+        assertEquals(1, nodeList.get(1).value);
 
         clean();
 
         fillElementsWithRepetitionsAtTheMiddle();
 
         nodeList = list.findAll(2);
-        assertEquals(nodeList.size(), 2);
-        assertEquals(nodeList.get(0).value, 2);
-        assertEquals(nodeList.get(1).value, 2);
+        assertEquals(2, nodeList.size());
+        assertEquals(2, nodeList.get(0).value);
+        assertEquals(2, nodeList.get(1).value);
 
         clean();
 
         fillElementsWithRepetitionsAtTheEnd();
 
         nodeList = list.findAll(5);
-        assertEquals(nodeList.size(), 2);
-        assertEquals(nodeList.get(0).value, 5);
-        assertEquals(nodeList.get(1).value, 5);
+        assertEquals(2, nodeList.size());
+        assertEquals(5, nodeList.get(0).value);
+        assertEquals(5, nodeList.get(1).value);
     }
 
     @Test
     void countTest() {
-        assertEquals(list.count(), 0);
+        assertEquals(0, list.count());
 
         fillSingleElement();
 
-        assertEquals(list.count(), 1);
+        assertEquals(1, list.count());
 
         clean();
 
         fillDifferentElements();
 
-        assertEquals(list.count(), 5);
+        assertEquals(5, list.count());
     }
 
     @Test
@@ -216,19 +218,19 @@ class LinkedListTest {
         Node nodeFromList;
 
         list.insertAfter(someNode, nodeToInsert);
-        assertEquals(list.count(), 0);
+        assertEquals(0, list.count());
         assertNull(list.head);
         assertNull(list.tail);
 
         list.insertAfter(someNode, null);
-        assertEquals(list.count(), 0);
+        assertEquals(0, list.count());
         assertNull(list.head);
         assertNull(list.tail);
 
         list.insertAfter(null, nodeToInsert);
-        assertEquals(list.count(), 1);
-        assertEquals(list.head.value, 7);
-        assertEquals(list.head, list.head);
+        assertEquals(1, list.count());
+        assertEquals(7, list.head.value);
+        assertEquals(list.head, list.tail);
 
         clean();
 
@@ -236,28 +238,28 @@ class LinkedListTest {
 
         nodeFromList = list.find(3);
 
-        list.insertAfter(null, nodeToInsert);
-        assertEquals(list.count(), 1);
-        assertEquals(list.head, list.tail);
-
         list.insertAfter(someNode, nodeToInsert);
-        assertEquals(list.count(), 1);
+        assertEquals(1, list.count());
         assertEquals(list.head, list.tail);
 
         list.insertAfter(someNode, null);
-        assertEquals(list.count(), 1);
+        assertEquals(1, list.count());
         assertEquals(list.head, list.tail);
 
         list.insertAfter(nodeFromList, null);
-        assertEquals(list.count(), 1);
+        assertEquals(1, list.count());
         assertEquals(list.head, list.tail);
 
-        list.insertAfter(nodeFromList, nodeToInsert);
-        assertEquals(list.count(), 2);
-        assertEquals(list.tail, nodeToInsert);
+        list.insertAfter(null, nodeToInsert);
+        assertEquals(2, list.count());
+        assertEquals(list.head, nodeToInsert);
+
+        list.insertAfter(nodeFromList, new Node(8));
+        assertEquals(3, list.count());
+        assertEquals(8, list.tail.value);
 
         list.insertAfter(nodeToInsert, nodeToInsert);
-        assertEquals(list.count(), 2);
+        assertEquals(3, list.count());
         assertEquals(list.tail, nodeToInsert);
 
         clean();
@@ -267,16 +269,16 @@ class LinkedListTest {
         nodeFromList = list.find(2);
 
         list.insertAfter(nodeFromList, nodeToInsert);
-        assertEquals(list.count(), 6);
-        assertEquals(list.find(7), nodeToInsert);
+        assertEquals(6, list.count());
+        assertEquals(nodeToInsert, list.find(7));
 
         list.remove(7);
 
         nodeFromList = list.find(5);
 
         list.insertAfter(nodeFromList, nodeToInsert);
-        assertEquals(list.count(), 6);
-        assertEquals(list.find(7), nodeToInsert);
+        assertEquals(6, list.count());
+        assertEquals(nodeToInsert, list.find(7));
     }
 
 
