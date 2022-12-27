@@ -17,7 +17,7 @@ public class LinkedList2 {
             this.head = _item;
             this.head.next = null;
             this.head.prev = null;
-        } else {
+        } else if (_item != null) {
             this.tail.next = _item;
             _item.prev = tail;
         }
