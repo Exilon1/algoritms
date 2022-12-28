@@ -24,16 +24,8 @@ public class FakeNodeLinkedList2 {
     }
 
     public Node2 find(int value) {
-        if (head.getNext() == tail) {
+        if (head.getNext() instanceof FakeNode) {
             return null;
-        }
-
-        if (head.getNext() == tail.getPrev()) {
-            if (head.getNext().getValue() == value) {
-                return head.getNext();
-            } else {
-                return null;
-            }
         }
 
         Node2 leftNode = head.getNext();
@@ -56,22 +48,15 @@ public class FakeNodeLinkedList2 {
         return null;
     }
 
-    public ArrayList<Node2> findAll(int value) {
+    public List<Node2> findAll(int value) {
         ArrayList<Node2> nodes = new ArrayList<>();
 
-        if (head.getNext() == tail) {
+        if (head.getNext() instanceof FakeNode) {
             return nodes;
         }
 
-        if (head.getNext() == tail.getPrev()) {
-            if (head.getNext().getValue() == value) {
-                nodes.add(head.getNext());
-            }
-            return nodes;
-        }
-
-        Node2 leftNode = head;
-        Node2 rightNode = tail;
+        Node2 leftNode = head.getNext();
+        Node2 rightNode = tail.getPrev();
 
         do {
             if (leftNode.getValue() == value) {
@@ -91,10 +76,6 @@ public class FakeNodeLinkedList2 {
     }
 
     public boolean remove(int value) {
-        if (head == null) {
-            return false;
-        }
-
         Node2 foundNode = find(value);
 
         if (foundNode != null) {
@@ -106,8 +87,8 @@ public class FakeNodeLinkedList2 {
         return false;
     }
 
-    public void removeAll(int _value) {
-        List<Node2> list = findAll(_value);
+    public void removeAll(int value) {
+        List<Node2> list = findAll(value);
 
         list.forEach(this::removeNode);
     }
@@ -125,7 +106,7 @@ public class FakeNodeLinkedList2 {
     public int count() {
         int n = 0;
         Node2 node = head.getNext();
-        while (node != tail) {
+        while (! (node instanceof FakeNode)) {
             n++;
             node = node.getNext();
         }
@@ -150,7 +131,7 @@ public class FakeNodeLinkedList2 {
         }
 
         Node2 node = head.getNext();
-        while (node != null) {
+        while (! (node instanceof FakeNode)) {
             if (node == nodeAfter) {
                 nodeToInsert.setPrev(node);
                 nodeToInsert.setNext(node.getNext());
@@ -159,12 +140,13 @@ public class FakeNodeLinkedList2 {
 
                 return;
             }
+            node = node.getNext();
         }
     }
 
     private boolean checkTheNodeIsContainedInList(Node2 node) {
         Node2 current = head.getNext();
-        while (current != tail) {
+        while (! (current instanceof FakeNode)) {
             if (current == node) {
                 return true;
             }
@@ -180,8 +162,8 @@ class Node2 {
     private Node2 next;
     private Node2 prev;
 
-    public Node2(int _value) {
-        value = _value;
+    public Node2(int value) {
+        this.value = value;
         next = null;
         prev = null;
     }
@@ -207,7 +189,14 @@ class Node2 {
     }
 }
 
-class FakeHead extends Node2 {
+abstract class FakeNode extends Node2 {
+
+    protected FakeNode(int value) {
+        super(value);
+    }
+}
+
+class FakeHead extends FakeNode {
 
     public FakeHead() {
         super(Integer.MIN_VALUE);
@@ -224,7 +213,7 @@ class FakeHead extends Node2 {
     }
 }
 
-class FakeTail extends Node2 {
+class FakeTail extends FakeNode {
 
     public FakeTail() {
         super(Integer.MAX_VALUE);
