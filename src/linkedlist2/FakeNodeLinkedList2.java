@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FakeNodeLinkedList2 {
-    private FakeHead head;
-    private FakeTail tail;
+    private final FakeHead head;
+    private final FakeTail tail;
 
     public FakeNodeLinkedList2() {
         head = new FakeHead();
