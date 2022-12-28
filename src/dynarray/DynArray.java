@@ -10,7 +10,6 @@ public class DynArray<T> {
 
     public DynArray(Class clz) {
         clazz = clz;
-        // new DynArray<Integer>(Integer.class);
 
         count = 0;
         makeArray(16);
