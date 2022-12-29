@@ -94,11 +94,13 @@ public class DynArray<T> {
 
     private void reduceArray() {
         int newCapacity = (int) (capacity / 1.5);
+
         if (newCapacity < 16) {
             makeArray(16);
-        } else {
-            makeArray(newCapacity);
+            return;
         }
+
+        makeArray(newCapacity);
     }
 
     private boolean checkConditionToReduce() {
