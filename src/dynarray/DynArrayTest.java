@@ -183,6 +183,9 @@ public class DynArrayTest {
 
         fillLessThanCapacityFirstPreset();
 
+        assertEquals(16, array.capacity);
+        assertEquals(9, array.count);
+
         array.remove(0);
         array.remove(0);
 
