@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LinkedList2Test {
 
-    private static final LinkedList2 list = new LinkedList2();
+    private final LinkedList2 list = new LinkedList2();
 
 
     @AfterEach
@@ -362,7 +362,7 @@ public class LinkedList2Test {
         list.addInTail(new Node(3));
     }
 
-    static void fillDifferentFirstPreset() {
+    void fillDifferentFirstPreset() {
         list.addInTail(new Node(1));
         list.addInTail(new Node(2));
         list.addInTail(new Node(3));
@@ -377,7 +377,7 @@ public class LinkedList2Test {
         list.addInTail(new Node(4));
     }
 
-    static void fillElementsWithRepetitionsAtTheBeginning() {
+    void fillElementsWithRepetitionsAtTheBeginning() {
         list.addInTail(new Node(1));
         list.addInTail(new Node(1));
         list.addInTail(new Node(3));
