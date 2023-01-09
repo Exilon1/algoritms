@@ -16,6 +16,9 @@ public class PostfixCalculator {
         System.out.println("10 2 + 3 * = " + calculate("10 2 + 3 * ="));
         System.out.println("2 8 / 6 3 * + = " + calculate("2 8 / 6 3 * + ="));
         System.out.println("3 2 * 5 4 * + = " + calculate("3 2 * 5 4 * + ="));
+        System.out.println("2 8 / = " + calculate("2 8 / ="));
+        System.out.println("2 7 / = " + calculate("2 7 / ="));
+        System.out.println("7 2 / = " + calculate("7 2 / ="));
     }
 
     public static Integer calculate(String expression) {
