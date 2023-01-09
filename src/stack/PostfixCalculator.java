@@ -1,7 +1,9 @@
 package stack;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +11,14 @@ public class PostfixCalculator {
 
     private static InvertedStack<Object> expressionStack;
     private static final Stack<Integer> valueStack = new Stack<>();
+
+    private static final Map<Character, Operation> operations = Map.of(
+            '+', Integer::sum,
+            '-', (k, l) -> k - l,
+            '*', (k, l) -> k * l,
+            '/', (k, l) -> k / l
+    );
+
 
     public static void main(String[] args) {
         System.out.println("8 2 + 5 * 9 + = " + calculate("8 2 + 5 * 9 + ="));
@@ -18,7 +28,7 @@ public class PostfixCalculator {
         System.out.println("3 2 * 5 4 * + = " + calculate("3 2 * 5 4 * + ="));
         System.out.println("2 8 / = " + calculate("2 8 / ="));
         System.out.println("2 7 / = " + calculate("2 7 / ="));
-        System.out.println("7 2 / = " + calculate("7 2 / ="));
+        System.out.println("7 2 & = " + calculate("7 2 & ="));
     }
 
     public static Integer calculate(String expression) {
@@ -36,7 +46,8 @@ public class PostfixCalculator {
                 Integer firstOperand = valueStack.pop();
                 Integer secondOperand = valueStack.pop();
 
-                Integer val = doOperation(firstOperand, secondOperand, (Character) value);
+    //            Integer val = doOperation(firstOperand, secondOperand, (Character) value);
+                Integer val = operations.get(value).execute(firstOperand, secondOperand);
                 valueStack.push(val);
             }
 
@@ -91,25 +102,25 @@ public class PostfixCalculator {
         valueStack.clear();
     }
 
-    private static Integer doOperation(Integer firstOperand, Integer secondOperand, Character operation) {
-        if (operation.equals('+')) {
-            return firstOperand + secondOperand;
-        }
-
-        if (operation.equals('*')) {
-            return firstOperand * secondOperand;
-        }
-
-        if (operation.equals('/')) {
-            return firstOperand / secondOperand;
-        }
-
-        if (operation.equals('-')) {
-            return firstOperand - secondOperand;
-        }
-
-        throw new IllegalStateException("Invalid operation " + operation);
-    }
+//    private static Integer doOperation(Integer firstOperand, Integer secondOperand, Character operation) {
+//        if (operation.equals('+')) {
+//            return firstOperand + secondOperand;
+//        }
+//
+//        if (operation.equals('*')) {
+//            return firstOperand * secondOperand;
+//        }
+//
+//        if (operation.equals('/')) {
+//            return firstOperand / secondOperand;
+//        }
+//
+//        if (operation.equals('-')) {
+//            return firstOperand - secondOperand;
+//        }
+//
+//        throw new IllegalStateException("Invalid operation " + operation);
+//    }
 
     private static boolean intChar(char c) {
         boolean intChar;
@@ -134,5 +145,10 @@ public class PostfixCalculator {
         }
 
         return intChar;
+    }
+
+    @FunctionalInterface
+    interface Operation {
+        int execute(int firstOperand, int secondOperand);
     }
 }
