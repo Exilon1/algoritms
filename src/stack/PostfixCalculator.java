@@ -14,14 +14,15 @@ public class PostfixCalculator {
         System.out.println("8 2 + 5 * 9 + = " + calculate("8 2 + 5 * 9 + ="));
         System.out.println("1 2 + 3 * = " + calculate("1 2 + 3 * ="));
         System.out.println("10 2 + 3 * = " + calculate("10 2 + 3 * ="));
-        System.out.println("1 2 + 30 * = " + calculate("1 2 + 30 * ="));
+        System.out.println("2 8 / 6 3 * + = " + calculate("2 8 / 6 3 * + ="));
+        System.out.println("3 2 * 5 4 * + = " + calculate("3 2 * 5 4 * + ="));
     }
 
-    public static int calculate(String expression) {
+    public static Integer calculate(String expression) {
         initializeExpressionStack(expression);
         clearValueStack();
 
-        Integer result = Integer.MIN_VALUE;
+        Integer result = null;
 
         while (expressionStack.peek() != null) {
             Object value = expressionStack.pop();
@@ -55,7 +56,7 @@ public class PostfixCalculator {
 
 
         for (char c : expression.toCharArray()) {
-            if (c == '+' || c == '*') {
+            if (c == '+' || c == '*' || c == '/' || c == '-') {
                 list.add(c);
                 continue;
             }
@@ -96,7 +97,15 @@ public class PostfixCalculator {
             return firstOperand * secondOperand;
         }
 
-        return Integer.MIN_VALUE;
+        if (operation.equals('/')) {
+            return firstOperand / secondOperand;
+        }
+
+        if (operation.equals('-')) {
+            return firstOperand - secondOperand;
+        }
+
+        throw new IllegalStateException("Invalid operation " + operation);
     }
 
     private static boolean intChar(char c) {
