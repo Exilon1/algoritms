@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 public class PostfixCalculator {
 
-    private static InvertedStack<Object> firstStack;
-    private static final Stack<Integer> secondStack = new Stack<>();
+    private static InvertedStack<Object> expressionStack;
+    private static final Stack<Integer> valueStack = new Stack<>();
 
     public static void main(String[] args) {
         System.out.println("8 2 + 5 * 9 + = " + calculate("8 2 + 5 * 9 + ="));
@@ -18,25 +18,26 @@ public class PostfixCalculator {
     }
 
     public static int calculate(String expression) {
-        initialize(expression);
+        initializeExpressionStack(expression);
+        clearValueStack();
 
         Integer result = Integer.MIN_VALUE;
 
-        while (firstStack.peek() != null) {
-            Object value = firstStack.pop();
+        while (expressionStack.peek() != null) {
+            Object value = expressionStack.pop();
 
             if (value instanceof Integer) {
-                secondStack.push((Integer) value);
+                valueStack.push((Integer) value);
             } else if (value instanceof Character && !value.equals('=')) {
-                Integer firstOperand = secondStack.pop();
-                Integer secondOperand = secondStack.pop();
+                Integer firstOperand = valueStack.pop();
+                Integer secondOperand = valueStack.pop();
 
                 Integer val = doOperation(firstOperand, secondOperand, (Character) value);
-                secondStack.push(val);
+                valueStack.push(val);
             }
 
             if (value instanceof Character && value.equals('=')) {
-                result = secondStack.pop();
+                result = valueStack.pop();
                 break;
             }
         }
@@ -44,7 +45,7 @@ public class PostfixCalculator {
         return result;
     }
 
-    private static void initialize(String expression) {
+    private static void initializeExpressionStack(String expression) {
         List<Object> list = new LinkedList<>();
 
         Pattern integerPattern = Pattern.compile("\\d+");
@@ -79,7 +80,11 @@ public class PostfixCalculator {
             list.add(Integer.valueOf(matcher.group()));
         }
 
-        firstStack = new InvertedStack<>(list);
+        expressionStack = new InvertedStack<>(list);
+    }
+
+    private static void clearValueStack() {
+        valueStack.clear();
     }
 
     private static Integer doOperation(Integer firstOperand, Integer secondOperand, Character operation) {
