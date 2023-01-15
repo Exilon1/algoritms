@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HashTableTest {
 
-    private static final HashTable hashTable = new HashTable(17, 3);
+    private final HashTable hashTable = new HashTable(17, 3);
 
     @AfterEach
     void clean() {
