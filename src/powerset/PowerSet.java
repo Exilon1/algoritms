@@ -51,9 +51,9 @@ public class PowerSet {
     public PowerSet intersection(PowerSet set2) {
         PowerSet powerSet = new PowerSet();
 
-        for (int i = 0; i < slots.length; i++) {
-            if (slots[i] != null && set2.get(slots[i])) {
-                powerSet.put(slots[i]);
+        for (String slot : slots) {
+            if (slot != null && set2.get(slot)) {
+                powerSet.put(slot);
             }
         }
 
@@ -64,15 +64,15 @@ public class PowerSet {
         PowerSet powerSet = new PowerSet();
         String[] slots2 = set2.getSlots();
 
-        for (int i = 0; i < slots2.length; i++) {
-            if (slots2[i] != null) {
-                powerSet.put(slots2[i]);
+        for (String s : slots2) {
+            if (s != null) {
+                powerSet.put(s);
             }
         }
 
-        for (int i = 0; i < slots.length; i++) {
-            if (slots[i] != null) {
-                powerSet.put(slots[i]);
+        for (String slot : slots) {
+            if (slot != null) {
+                powerSet.put(slot);
             }
         }
 
@@ -82,9 +82,9 @@ public class PowerSet {
     public PowerSet difference(PowerSet set2) {
         PowerSet powerSet = new PowerSet();
 
-        for (int i = 0; i < slots.length; i++) {
-            if (slots[i] != null && !set2.get(slots[i])) {
-                powerSet.put(slots[i]);
+        for (String slot : slots) {
+            if (slot != null && !set2.get(slot)) {
+                powerSet.put(slot);
             }
         }
 
@@ -98,8 +98,8 @@ public class PowerSet {
             return false;
         }
 
-        for (int i = 0; i < slots2.length; i++) {
-            if (slots2[i] != null && !get(slots2[i])) {
+        for (String s : slots2) {
+            if (s != null && !get(s)) {
                 return false;
             }
         }
@@ -108,6 +108,7 @@ public class PowerSet {
     }
 
     public void clear() {
+        size = 0;
         Arrays.fill(slots, null);
     }
 
@@ -116,7 +117,10 @@ public class PowerSet {
     }
 
     private int hashFun(String value) {
-        return Math.abs(value.hashCode()) % slots.length;
+        int hash = value.hashCode();
+        int y = hash >> 31;
+
+        return ((hash ^ y) - y) % slots.length;
     }
 
     private int find(String value) {

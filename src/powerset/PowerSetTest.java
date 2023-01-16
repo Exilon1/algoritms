@@ -41,6 +41,24 @@ public class PowerSetTest {
         assertFalse(powerSet.remove("bb"));
         assertTrue(powerSet.remove("aaa"));
         assertEquals(16, powerSet.size());
+        assertFalse(powerSet.get("aaa"));
+
+        clean();
+
+        for (int i = 1; i <= 20000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+
+        assertFalse(powerSet.remove(String.valueOf(0)));
+        assertTrue(powerSet.remove(String.valueOf(1)));
+        assertTrue(powerSet.remove(String.valueOf(19536)));
+        assertTrue(powerSet.remove(String.valueOf(11036)));
+        assertTrue(powerSet.remove(String.valueOf(20000)));
+        assertEquals(19996, powerSet.size());
+        assertFalse(powerSet.get(String.valueOf(1)));
+        assertFalse(powerSet.get(String.valueOf(19536)));
+        assertFalse(powerSet.get(String.valueOf(11036)));
+        assertFalse(powerSet.get(String.valueOf(20000)));
     }
 
     @Test
@@ -158,16 +176,8 @@ public class PowerSetTest {
         assertFalse(testPowerSet.isSubset(powerSet));
     }
 
-    @Test
-    @Timeout(value = 2)
-    void performanceTest() {
-        long start = System.currentTimeMillis();
-
-        long end = System.currentTimeMillis();
-    }
-
     @Nested
-    class TestNest {
+    class NestPerformanceTest {
 
         @BeforeEach
         public void init() {
@@ -175,6 +185,12 @@ public class PowerSetTest {
                 powerSet.put(String.valueOf(i));
                 testPowerSet.put(String.valueOf(i + 1000));
             }
+        }
+
+        @AfterEach
+        void clean() {
+            powerSet.clear();
+            testPowerSet.clear();
         }
 
         @Test
@@ -238,6 +254,5 @@ public class PowerSetTest {
         testPowerSet.put("aaa");
         testPowerSet.put("aaaa");
         testPowerSet.put("aaaaaaaaaaaaaaaaa");
-
     }
 }
