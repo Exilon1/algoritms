@@ -87,6 +87,13 @@ public class HashTableTest {
         int indexTwo = hashTable.find("a");
         assertEquals(indexOne, indexTwo);
 
+        assertTrue(hashTable.put("a") >= 0);
+        assertTrue(hashTable.put("a") < hashTable.size);
+
+        indexTwo = hashTable.find("a");
+        assertEquals(indexOne, hashTable.put("a"));
+        assertEquals(indexTwo, hashTable.put("a"));
+
         clean();
 
         fillTableWithCollisions();
