@@ -118,9 +118,12 @@ public class PowerSet {
 
     private int hashFun(String value) {
         int hash = value.hashCode();
-        int y = hash >> 31;
 
-        return ((hash ^ y) - y) % slots.length;
+        if (hash == Integer.MIN_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+
+        return Math.abs(hash) % slots.length;
     }
 
     private int find(String value) {
