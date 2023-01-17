@@ -130,11 +130,7 @@ public class PowerSet {
         int index = hashFun(value);
 
         try {
-            if (slots[index] == null) {
-                return -1;
-            }
-
-            if (slots[index].equals(value)) {
+            if (value.equals(slots[index])) {
                 return index;
             }
 

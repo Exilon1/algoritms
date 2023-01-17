@@ -45,20 +45,15 @@ public class PowerSetTest {
 
         clean();
 
-        for (int i = 1; i <= 20000; i++) {
+        for (int i = 0; i < 10000; i++) {
             powerSet.put(String.valueOf(i));
         }
 
-        assertFalse(powerSet.remove(String.valueOf(0)));
-        assertTrue(powerSet.remove(String.valueOf(1)));
-        assertTrue(powerSet.remove(String.valueOf(19536)));
-        assertTrue(powerSet.remove(String.valueOf(11036)));
-        assertTrue(powerSet.remove(String.valueOf(20000)));
-        assertEquals(19996, powerSet.size());
-        assertFalse(powerSet.get(String.valueOf(1)));
-        assertFalse(powerSet.get(String.valueOf(19536)));
-        assertFalse(powerSet.get(String.valueOf(11036)));
-        assertFalse(powerSet.get(String.valueOf(20000)));
+        for (int i = 0; i < 10000; i++) {
+            assertTrue(powerSet.remove(String.valueOf(i)));
+            assertFalse(powerSet.get(String.valueOf(i)));
+            assertEquals(9999 - i, powerSet.size());
+        }
     }
 
     @Test
