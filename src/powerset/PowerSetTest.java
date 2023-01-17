@@ -30,6 +30,18 @@ public class PowerSetTest {
         powerSet.put("a");
         assertTrue(powerSet.get("a"));
         assertEquals(1, powerSet.size());
+
+        for (int i = 0; i < 10000; i++) {
+            powerSet.put(String.valueOf(i));
+        }
+
+        for (int i = 0; i < 10000; i++) {
+            powerSet.put(String.valueOf("9999"));
+        }
+
+        for (int i = 0; i < 10000; i++) {
+            assertTrue(powerSet.get(String.valueOf(i)));
+        }
     }
 
     @Test
