@@ -171,6 +171,7 @@ public class PowerSetTest {
         fillSet();
         fillTestSubset();
 
+        assertTrue(powerSet.isSubset(powerSet));
         assertTrue(powerSet.isSubset(testPowerSet));
         assertFalse(testPowerSet.isSubset(powerSet));
 
@@ -221,7 +222,7 @@ public class PowerSetTest {
         @Test
         @Timeout(value = 2)
         public void isSubsetTest() {
-            powerSet.isSubset(testPowerSet);
+            powerSet.isSubset(powerSet);
         }
 
     }
