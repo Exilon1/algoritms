@@ -33,7 +33,7 @@ public class BloomFilter {
         }
 
         if (iter == Integer.MIN_VALUE) {
-            return Integer.MAX_VALUE;
+            return Integer.MAX_VALUE % filter_len;
         }
 
         return Math.abs(iter) % filter_len;

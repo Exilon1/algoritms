@@ -23,7 +23,7 @@ public class NativeCache<T> {
         int hash = key.hashCode();
 
         if (hash == Integer.MIN_VALUE) {
-            return Integer.MAX_VALUE;
+            return Integer.MAX_VALUE % size;
         }
 
         return Math.abs(hash) % size;

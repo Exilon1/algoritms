@@ -120,7 +120,7 @@ public class PowerSet {
         int hash = value.hashCode();
 
         if (hash == Integer.MIN_VALUE) {
-            return Integer.MAX_VALUE;
+            return Integer.MAX_VALUE % slots.length;
         }
 
         return Math.abs(hash) % slots.length;
