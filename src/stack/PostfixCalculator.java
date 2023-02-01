@@ -1,6 +1,5 @@
 package stack;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +8,20 @@ import java.util.regex.Pattern;
 
 public class PostfixCalculator {
 
+    public static final char PLUS = '+';
+    public static final char MINUS = '-';
+    public static final char MULTIPLY = '*';
+    public static final char DIVIDE = '/';
+    public static final char EQUALS = '=';
+
     private static InvertedStack<Object> expressionStack;
     private static final Stack<Integer> valueStack = new Stack<>();
 
     private static final Map<Character, Operation> operations = Map.of(
-            '+', Integer::sum,
-            '-', (k, l) -> k - l,
-            '*', (k, l) -> k * l,
-            '/', (k, l) -> k / l
+            PLUS, Integer::sum,
+            MINUS, (k, l) -> k - l,
+            MULTIPLY, (k, l) -> k * l,
+            DIVIDE, (k, l) -> k / l
     );
 
 
@@ -42,7 +47,7 @@ public class PostfixCalculator {
 
             if (value instanceof Integer) {
                 valueStack.push((Integer) value);
-            } else if (value instanceof Character && !value.equals('=')) {
+            } else if (value instanceof Character && !value.equals(EQUALS)) {
                 Integer firstOperand = valueStack.pop();
                 Integer secondOperand = valueStack.pop();
 
@@ -51,7 +56,7 @@ public class PostfixCalculator {
                 valueStack.push(val);
             }
 
-            if (value instanceof Character && value.equals('=')) {
+            if (value instanceof Character && value.equals(EQUALS)) {
                 result = valueStack.pop();
                 break;
             }
@@ -70,12 +75,12 @@ public class PostfixCalculator {
 
 
         for (char c : expression.toCharArray()) {
-            if (c == '+' || c == '*' || c == '/' || c == '-') {
+            if (c == PLUS || c == MINUS || c == MULTIPLY || c == DIVIDE) {
                 list.add(c);
                 continue;
             }
 
-            if (c == '=') {
+            if (c == EQUALS) {
                 list.add(c);
                 break;
             }
